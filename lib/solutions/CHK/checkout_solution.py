@@ -225,7 +225,7 @@ def apply_group_discount(total: int, skus: str):
     if len(sku_values) < group_discount.group_count:
         return total
 
-    
+    total -= 
 
 
 
@@ -245,3 +245,4 @@ def checkout(skus):
             return -1
 
     return total
+
