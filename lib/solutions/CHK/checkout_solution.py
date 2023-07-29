@@ -37,6 +37,9 @@ class MultiBuyOffer:
             # Calculate free products
             number_of_possible_free_skus = sku_count // offer_sku_count
 
+            if number_of_possible_free_skus == 0:
+                continue
+
             number_of_target_sku = skus.count(offer["sku"])
             original_offer_price = offer["special_offer"].calculate_price(number_of_target_sku)
 
