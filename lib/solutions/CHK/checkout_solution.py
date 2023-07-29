@@ -1,10 +1,26 @@
+from dataclasses import dataclass
+from typing import Dict
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
+
+@dataclass
+class MultiPriceOffer:
+    prices: Dict[int, int]
+
+    def calculate_price(self, sku_count: int) -> int:
+        
+
+        if price_table[sku]["special_offers"]["count"] <= sku_count:
+            total += price_table[sku]["special_offers"]["price"] * (
+                        sku_count // price_table[sku]["special_offers"]["count"])
+            total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
+            return total
+
 def get_price(sku: str, sku_count: int) -> int:
     price_table = {
-        "A": {"price": 50, "special_offers": [{"count": 3, "price": 130}, {"count": 5, "price": 200}]},
+        "A": {"price": 50, "special_offers": MultiPriceOffer(prices={3: 130, 5: 200})},
         "B": {"price": 30, "special_offers": [{"count": 2, "price": 45}]},
         "C": {"price": 20},
         "D": {"price": 15},
