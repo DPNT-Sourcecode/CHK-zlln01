@@ -5,6 +5,7 @@ from typing import Dict, Union, Optional
 # noinspection PyUnusedLocal
 # skus = unicode string
 
+
 @dataclass
 class MultiPriceOffer:
     base_price: int
@@ -41,16 +42,22 @@ class MultiBuyOffer:
                 continue
 
             number_of_target_sku = skus.count(offer["sku"])
-            original_offer_price = offer["special_offer"].calculate_price(number_of_target_sku)
+            original_offer_price = offer["special_offer"].calculate_price(
+                number_of_target_sku
+            )
 
             if number_of_possible_free_skus <= number_of_target_sku:
-                calculated_price = offer["special_offer"].calculate_price(number_of_target_sku-number_of_possible_free_skus)
+                calculated_price = offer["special_offer"].calculate_price(
+                    number_of_target_sku - number_of_possible_free_skus
+                )
                 if original_offer_price > calculated_price:
                     total -= original_offer_price - calculated_price
                 else:
                     total -= calculated_price
             else:
-                calculated_price = offer["special_offer"].calculate_price(number_of_target_sku)
+                calculated_price = offer["special_offer"].calculate_price(
+                    number_of_target_sku
+                )
                 if original_offer_price > calculated_price:
                     total -= original_offer_price - calculated_price
                 else:
@@ -58,33 +65,47 @@ class MultiBuyOffer:
 
         return total
 
+
 def get_price(sku: str, sku_count: int, skus: str) -> int:
-    b_special_offer = MultiPriceOffer(base_price=30, prices={2: 45})
     price_table = {
-        "A": {"price": 50, "special_offers": MultiPriceOffer(base_price=50, prices={3: 130, 5: 200})},
-        "B": {"price": 30, "special_offers": MultiPriceOffer(base_price=30, prices={2: 45})},
+        "A": {
+            "price": 50,
+            "special_offers": MultiPriceOffer(base_price=50, prices={3: 130, 5: 200}),
+        },
+        "B": {
+            "price": 30,
+            "special_offers": MultiPriceOffer(base_price=30, prices={2: 45}),
+        },
         "C": {"price": 20},
         "D": {"price": 15},
-        "E": {"price": 40, "special_offers": MultiBuyOffer(base_price=40, multi_buy_offers={
-            2: {
-                "count": 1,
-                "base_price": 30,
-                "sku": "B",
-                "special_offer": MultiPriceOffer(base_price=30, prices={2: 45})
-            }
-        }
-        )
+        "E": {
+            "price": 40,
+            "special_offers": MultiBuyOffer(
+                base_price=40,
+                multi_buy_offers={
+                    2: {
+                        "count": 1,
+                        "base_price": 30,
+                        "sku": "B",
+                        "special_offer": MultiPriceOffer(base_price=30, prices={2: 45}),
+                    }
+                },
+            ),
         },
-        "F": {"price": 10, "special_offers": MultiBuyOffer(base_price=10, multi_buy_offers={
-            3: {
-                "count": 1,
-                "base_price": 10,
-                "sku": "F",
-                "special_offer": MultiPriceOffer(base_price=10, prices={})
-            }
-        }
-                                                           )
-              }
+        "F": {
+            "price": 10,
+            "special_offers": MultiBuyOffer(
+                base_price=10,
+                multi_buy_offers={
+                    3: {
+                        "count": 1,
+                        "base_price": 10,
+                        "sku": "F",
+                        "special_offer": MultiPriceOffer(base_price=10, prices={}),
+                    }
+                },
+            ),
+        },
     }
 
     # Check if SKU in price table
@@ -96,7 +117,7 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
     if price_table[sku].get("special_offers", None):
         return price_table[sku]["special_offers"].calculate_price(sku_count, skus)
 
-    total = (price_table[sku]["price"] * sku_count)
+    total = price_table[sku]["price"] * sku_count
 
     return total
 
@@ -116,3 +137,4 @@ def checkout(skus):
             return -1
 
     return total
+
