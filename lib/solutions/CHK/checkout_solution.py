@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Union, Optional
+from typing import Dict, Union, Optional, Any
 
 
 # noinspection PyUnusedLocal
@@ -66,7 +66,7 @@ class MultiBuyOffer:
         return total
 
 
-def get_price(sku: str, sku_count: int, skus: str) -> int:
+def get_price_table() -> Dict[str, Any]:
     price_table = {
         "A": {
             "price": 50,
@@ -106,7 +106,34 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
                 },
             ),
         },
+        "G": {"price": 20},
+        "H": {"price": 10},  # TODO
+        "I": {"price": 35},
+        "J": {"price": 60},
+        "K": {"price": 80},  # TODO
+        "L": {"price": 90},
+        "M": {"price": 15},
+        "N": {"price": 40},  # TODO
+        "O": {"price": 10},
+        "P": {"price": 50},  # TODO
+        "Q": {"price": 30},  # TODO
+        "R": {"price": 50},  # TODO
+        "S": {"price": 30},
+        "T": {"price": 20},
+        "U": {"price": 40},  # TODO
+        "V": {"price": 50},  # TODO
+        "W": {"price": 20},
+        "X": {"price": 90},
+        "Y": {"price": 10},
+        "Z": {"price": 50},
+
+
     }
+
+    return price_table
+
+def get_price(sku: str, sku_count: int, skus: str) -> int:
+    price_table = get_price_table()
 
     # Check if SKU in price table
     if price_table.get(sku, None) is None:
