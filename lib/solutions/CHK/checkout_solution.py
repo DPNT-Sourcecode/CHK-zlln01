@@ -62,7 +62,7 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
     b_special_offer = MultiPriceOffer(base_price=30, prices={2: 45})
     price_table = {
         "A": {"price": 50, "special_offers": MultiPriceOffer(base_price=50, prices={3: 130, 5: 200})},
-        "B": {"price": 30, "special_offers": b_special_offer},
+        "B": {"price": 30, "special_offers": MultiPriceOffer(base_price=30, prices={2: 45})},
         "C": {"price": 20},
         "D": {"price": 15},
         "E": {"price": 40, "special_offers": MultiBuyOffer(base_price=40, multi_buy_offers={
@@ -70,7 +70,7 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
                 "count": 1,
                 "base_price": 30,
                 "sku": "B",
-                "special_offer": b_special_offer
+                "special_offer": MultiPriceOffer(base_price=30, prices={2: 45})
             }
         }
         )
