@@ -114,8 +114,8 @@ def get_price_table() -> Dict[str, Any]:
         "I": {"price": 35},
         "J": {"price": 60},
         "K": {
-            "price": 80,
-            "special_offers": MultiPriceOffer(base_price=80, prices={2: 150}),
+            "price": 70,
+            "special_offers": MultiPriceOffer(base_price=70, prices={2: 120}),
         },
         "L": {"price": 90},
         "M": {"price": 15},
@@ -156,8 +156,8 @@ def get_price_table() -> Dict[str, Any]:
                 },
             ),
         },
-        "S": {"price": 30},
-        "T": {"price": 20},
+        "S": {"price": 20}, # TODO
+        "T": {"price": 20}, # TODO
         "U": {
             "price": 40,
             "special_offers": MultiBuyOffer(
@@ -177,9 +177,9 @@ def get_price_table() -> Dict[str, Any]:
             "special_offers": MultiPriceOffer(base_price=50, prices={2: 90, 3: 130}),
         },
         "W": {"price": 20},
-        "X": {"price": 90},
-        "Y": {"price": 10},
-        "Z": {"price": 50},
+        "X": {"price": 17},  # TODO
+        "Y": {"price": 20}, # TODO
+        "Z": {"price": 21},  # TODO
     }
 
     return price_table
