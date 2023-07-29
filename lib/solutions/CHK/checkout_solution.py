@@ -163,7 +163,7 @@ def get_price_table() -> Dict[str, Any]:
             "special_offers": MultiBuyOffer(
                 base_price=40,
                 multi_buy_offers={
-                    3: {
+                    4: {
                         "count": 1,
                         "base_price": 40,
                         "sku": "U",
