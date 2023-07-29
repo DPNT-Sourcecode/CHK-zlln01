@@ -113,19 +113,21 @@ def get_price_table() -> Dict[str, Any]:
         "K": {"price": 80, "special_offers": MultiPriceOffer(base_price=80, prices={2: 150})},
         "L": {"price": 90},
         "M": {"price": 15},
-        "N": {"price": 40, "special_offers": MultiBuyOffer(
-                base_price=10,
-                multi_buy_offers={
-                    4: {
-                        "count": 1,
-                        "base_price": 15,
-                        "sku": "M",
-                        "special_offer": MultiPriceOffer(base_price=15, prices={}),
-                    }
-                },
-            ),},  # TODO
+        "N": {"price": 40,
+              "special_offers": MultiBuyOffer(
+                  base_price=40,
+                  multi_buy_offers={
+                      3: {
+                          "count": 1,
+                          "base_price": 15,
+                          "sku": "M",
+                          "special_offer": MultiPriceOffer(base_price=15, prices={}),
+                      }
+                  },
+              )
+              },
         "O": {"price": 10},
-        "P": {"price": 50},  # TODO
+        "P": {"price": 50, "special_offers": MultiPriceOffer(base_price=50, prices={5: 200})},
         "Q": {"price": 30},  # TODO
         "R": {"price": 50},  # TODO
         "S": {"price": 30},
@@ -174,5 +176,6 @@ def checkout(skus):
             return -1
 
     return total
+
 
 
