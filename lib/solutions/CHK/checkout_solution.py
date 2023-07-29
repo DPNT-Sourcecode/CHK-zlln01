@@ -27,7 +27,7 @@ class MultiPriceOffer:
 @dataclass
 class MultiBuyOffer:
     base_price: int
-    multi_buy_offers: Dict[int, Dict[str, Union[int, str]]]
+    multi_buy_offers: Dict[int, Dict[str, Union[int, str, MultiPriceOffer]]]
 
     def calculate_price(self, sku_count: int, skus: str) -> int:
         total = 0
@@ -40,19 +40,32 @@ class MultiBuyOffer:
             number_of_target_sku = skus.count(offer["sku"])
 
             if number_of_possible_free_skus <= number_of_target_sku:
-                total -= number_of_possible_free_skus * offer["base_price"]
+
+                # total -= number_of_possible_free_skus * offer["base_price"]
+                total -= offer["special_offer"].calculate_price(number_of_possible_free_skus)
             else:
-                total -= number_of_target_sku * offer["base_price"]
+                # total -= number_of_target_sku * offer["base_price"]
+                total -= offer["special_offer"].calculate_price(number_of_target_sku)
 
         return total
 
 def get_price(sku: str, sku_count: int, skus: str) -> int:
+    b_special_offer = MultiPriceOffer(base_price=30, prices={2: 45})
     price_table = {
         "A": {"price": 50, "special_offers": MultiPriceOffer(base_price=50, prices={3: 130, 5: 200})},
-        "B": {"price": 30, "special_offers": MultiPriceOffer(base_price=30, prices={2: 45})},
+        "B": {"price": 30, "special_offers": b_special_offer},
         "C": {"price": 20},
         "D": {"price": 15},
-        "E": {"price": 40, "special_offers": MultiBuyOffer(base_price=40, multi_buy_offers={2: {"count": 1, "base_price": 30, "sku": "B"}})}
+        "E": {"price": 40, "special_offers": MultiBuyOffer(base_price=40, multi_buy_offers={
+            2: {
+                "count": 1,
+                "base_price": 30,
+                "sku": "B",
+                "special_offer": b_special_offer
+            }
+        }
+        )
+        }
     }
 
     # Check if SKU in price table
@@ -84,4 +97,5 @@ def checkout(skus):
             return -1
 
     return total
+
 
