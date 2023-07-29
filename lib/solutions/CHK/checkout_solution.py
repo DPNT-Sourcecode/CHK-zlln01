@@ -27,7 +27,6 @@ class MultiPriceOffer:
 @dataclass
 class MultiBuyOffer:
     base_price: int
-    # {2: {"B": {"count": 1, "base_price": 30}}
     multi_buy_offers: Dict[int, Dict[str, Union[int, str]]]
 
     def calculate_price(self, sku_count: int, skus: str) -> int:
@@ -63,13 +62,7 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
     total = 0
     # Check for special offers
     if price_table[sku].get("special_offers", None):
-        # if price_table[sku]["special_offers"]["count"] <= sku_count:
-        #     total += price_table[sku]["special_offers"]["price"] * (
-        #                 sku_count // price_table[sku]["special_offers"]["count"])
-        #     total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
-        #     return total
         return price_table[sku]["special_offers"].calculate_price(sku_count, skus)
-
 
     total = (price_table[sku]["price"] * sku_count)
 
@@ -91,3 +84,4 @@ def checkout(skus):
             return -1
 
     return total
+

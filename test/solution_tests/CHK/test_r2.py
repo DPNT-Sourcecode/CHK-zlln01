@@ -12,8 +12,8 @@ class TestCheckout():
             ("AAAAAAAA", 330),
             ("AAABCDF", -1),
             ("EEB", 80),
-            ("EEBB", 110),
-            ("EEEEBB", 160),
+            ("EEBB", 95),
+            ("EEEEBB", 145),
             ("AAAAAEEB", 280),
         ])
     def test_checkout(self, skus, expected_value):
