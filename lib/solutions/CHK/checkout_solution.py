@@ -11,7 +11,7 @@ class MultiPriceOffer:
 
     def calculate_price(self, sku_count: int) -> int:
         total = 0
-        offer_count_ordered_by_count = list(self.prices.keys()).sort(reverse=True)
+        offer_count_ordered_by_count = sorted(self.prices.keys(), reverse=True)
         remaining = 0
         for offer_sku_count in offer_count_ordered_by_count:
             total += self.prices[offer_sku_count] * (sku_count // offer_sku_count)
@@ -64,5 +64,6 @@ def checkout(skus):
             return -1
 
     return total
+
 
 
