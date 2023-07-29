@@ -4,10 +4,11 @@
 # skus = unicode string
 def get_price(sku: str, sku_count: int) -> int:
     price_table = {
-        "A": {"price": 50, "special_offers": {"count": 3, "price": 130}},
-        "B": {"price": 30, "special_offers": {"count": 2, "price": 45}},
+        "A": {"price": 50, "special_offers": [{"count": 3, "price": 130}, {"count": 5, "price": 200}]},
+        "B": {"price": 30, "special_offers": [{"count": 2, "price": 45}]},
         "C": {"price": 20},
         "D": {"price": 15},
+        "E": {"price": 40, "special_offers": []}
     }
 
     # Check if SKU in price table
