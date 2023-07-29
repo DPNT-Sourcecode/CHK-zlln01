@@ -151,7 +151,7 @@ def get_price_table() -> Dict[str, Any]:
                         "count": 1,
                         "base_price": 30,
                         "sku": "Q",
-                        "special_offer": MultiPriceOffer(base_price=30, prices={}),
+                        "special_offer": MultiPriceOffer(base_price=30, prices={3: 80}),
                     }
                 },
             ),
@@ -217,3 +217,4 @@ def checkout(skus):
             return -1
 
     return total
+
