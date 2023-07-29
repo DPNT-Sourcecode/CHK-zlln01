@@ -10,7 +10,7 @@ class TestCheckout():
         [
             ("AAAAA", 200),
             ("AAAAAAAA", 330),
-            ("AAABCDE", -1),
+            ("AAABCDF", -1),
             ("EEB", 80),
             ("EEBB", 110),
             ("EEEEBB", 160),
