@@ -44,7 +44,7 @@ class MultiBuyOffer:
             original_offer_price = offer["special_offer"].calculate_price(number_of_target_sku)
 
             if number_of_possible_free_skus <= number_of_target_sku:
-                calculated_price = offer["special_offer"].calculate_price(number_of_possible_free_skus)
+                calculated_price = offer["special_offer"].calculate_price(number_of_target_sku-number_of_possible_free_skus)
                 if original_offer_price > calculated_price:
                     total -= original_offer_price - calculated_price
                 else:
@@ -106,3 +106,4 @@ def checkout(skus):
             return -1
 
     return total
+
