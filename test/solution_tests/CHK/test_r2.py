@@ -12,7 +12,7 @@ class TestCheckout():
             ("AAAAAAAA", 330),
             ("AAABCDF", -1),
             ("EEB", 80),
-            ("EEBB", 95),
+            ("EEBB", 110),
             ("EEEEBB", 160),
             ("BEBEEE", 160),
             ("ABCDEABCDE", 280),
@@ -20,5 +20,3 @@ class TestCheckout():
         ])
     def test_checkout(self, skus, expected_value):
         assert checkout(skus) == expected_value
-
-
