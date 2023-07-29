@@ -172,7 +172,10 @@ def get_price_table() -> Dict[str, Any]:
                 },
             ),
         },
-        "V": {"price": 50},  # TODO
+        "V": {
+            "price": 50,
+            "special_offers": MultiPriceOffer(base_price=50, prices={2: 90, 3: 130}),
+        },
         "W": {"price": 20},
         "X": {"price": 90},
         "Y": {"price": 10},
@@ -214,7 +217,3 @@ def checkout(skus):
             return -1
 
     return total
-
-
-
-
