@@ -28,6 +28,6 @@ def checkout(skus):
                 total += price_table[sku]["special_offers"]["price"]
                 continue
 
-        total += (sku * sku_count)
+        total += (price_table[sku]["price"] * sku_count)
 
     return total
