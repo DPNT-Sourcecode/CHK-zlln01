@@ -21,10 +21,12 @@ def get_price(sku: str, sku_count: int) -> int:
             total += price_table[sku]["special_offers"]["price"] * (
                         sku_count // price_table[sku]["special_offers"]["count"])
             total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
+            return total
 
     total = (price_table[sku]["price"] * sku_count)
 
     return total
+
 
 def checkout(skus):
     sku_count = {}
@@ -41,5 +43,3 @@ def checkout(skus):
             return -1
 
     return total
-
-
