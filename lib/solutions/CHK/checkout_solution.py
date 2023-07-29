@@ -24,10 +24,12 @@ def checkout(skus):
 
         # Check for special offers
         if price_table[sku].get("special_offers", None):
-            if price_table[sku]["special_offers"]["count"] == sku_count:
+            if price_table[sku]["special_offers"]["count"] <= sku_count:
+                
                 total += price_table[sku]["special_offers"]["price"]
                 continue
 
         total += (price_table[sku]["price"] * sku_count)
 
     return total
+
