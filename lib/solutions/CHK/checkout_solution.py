@@ -107,42 +107,80 @@ def get_price_table() -> Dict[str, Any]:
             ),
         },
         "G": {"price": 20},
-        "H": {"price": 10, "special_offers": MultiPriceOffer(base_price=10, prices={5: 45, 10: 80})},
+        "H": {
+            "price": 10,
+            "special_offers": MultiPriceOffer(base_price=10, prices={5: 45, 10: 80}),
+        },
         "I": {"price": 35},
         "J": {"price": 60},
-        "K": {"price": 80, "special_offers": MultiPriceOffer(base_price=80, prices={2: 150})},
+        "K": {
+            "price": 80,
+            "special_offers": MultiPriceOffer(base_price=80, prices={2: 150}),
+        },
         "L": {"price": 90},
         "M": {"price": 15},
-        "N": {"price": 40,
-              "special_offers": MultiBuyOffer(
-                  base_price=40,
-                  multi_buy_offers={
-                      3: {
-                          "count": 1,
-                          "base_price": 15,
-                          "sku": "M",
-                          "special_offer": MultiPriceOffer(base_price=15, prices={}),
-                      }
-                  },
-              )
-              },
+        "N": {
+            "price": 40,
+            "special_offers": MultiBuyOffer(
+                base_price=40,
+                multi_buy_offers={
+                    3: {
+                        "count": 1,
+                        "base_price": 15,
+                        "sku": "M",
+                        "special_offer": MultiPriceOffer(base_price=15, prices={}),
+                    }
+                },
+            ),
+        },
         "O": {"price": 10},
-        "P": {"price": 50, "special_offers": MultiPriceOffer(base_price=50, prices={5: 200})},
-        "Q": {"price": 30},  # TODO
-        "R": {"price": 50},  # TODO
+        "P": {
+            "price": 50,
+            "special_offers": MultiPriceOffer(base_price=50, prices={5: 200}),
+        },
+        "Q": {
+            "price": 30,
+            "special_offers": MultiPriceOffer(base_price=30, prices={3: 80}),
+        },
+        "R": {
+            "price": 50,
+            "special_offers": MultiBuyOffer(
+                base_price=50,
+                multi_buy_offers={
+                    3: {
+                        "count": 1,
+                        "base_price": 30,
+                        "sku": "Q",
+                        "special_offer": MultiPriceOffer(base_price=30, prices={}),
+                    }
+                },
+            ),
+        },
         "S": {"price": 30},
         "T": {"price": 20},
-        "U": {"price": 40},  # TODO
+        "U": {
+            "price": 40,
+            "special_offers": MultiBuyOffer(
+                base_price=40,
+                multi_buy_offers={
+                    3: {
+                        "count": 1,
+                        "base_price": 40,
+                        "sku": "U",
+                        "special_offer": MultiPriceOffer(base_price=40, prices={}),
+                    }
+                },
+            ),
+        },
         "V": {"price": 50},  # TODO
         "W": {"price": 20},
         "X": {"price": 90},
         "Y": {"price": 10},
         "Z": {"price": 50},
-
-
     }
 
     return price_table
+
 
 def get_price(sku: str, sku_count: int, skus: str) -> int:
     price_table = get_price_table()
@@ -176,6 +214,7 @@ def checkout(skus):
             return -1
 
     return total
+
 
 
 
