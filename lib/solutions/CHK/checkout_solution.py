@@ -225,7 +225,11 @@ def apply_group_discount(total: int, skus: str):
     if len(sku_values) < group_discount.group_count:
         return total
 
-    total -= 
+    list_split_index = len(sku_values) - (len(sku_values) % group_discount.group_count)
+    total -= sum(sku_values[:list_split_index])
+    total += (len(sku_values) // group_discount.group_count) * 45
+    total += sum(sku_values[list_split_index:])
+    return total
 
 
 
@@ -243,6 +247,6 @@ def checkout(skus):
             total += get_price(sku, sku_count, skus)
         except ValueError:
             return -1
+    total = apply_group_discount(total, skus)
 
     return total
-
