@@ -10,12 +10,21 @@ class MultiPriceOffer:
     prices: Dict[int, int]
 
     def calculate_price(self, sku_count: int) -> int:
-        prices = self.prices.keys()        
+        total = 0
+        offer_count_ordered_by_count = list(self.prices.keys()).sort(reverse=True)
+        remaining = 0
+        for offer_sku_count in offer_count_ordered_by_count:
+            total += self.prices[offer_sku_count] * (sku_count // offer_sku_count)
+            remaining = self.prices[offer_sku_count] * (sku_count % offer_sku_count)
+            if remaining == 0:
+                return total
+
+
 
 def get_price(sku: str, sku_count: int) -> int:
     price_table = {
         "A": {"price": 50, "special_offers": MultiPriceOffer(prices={3: 130, 5: 200})},
-        "B": {"price": 30, "special_offers": [{"count": 2, "price": 45}]},
+        "B": {"price": 30, "special_offers": MultiPriceOffer(prices={2: 45})},
         "C": {"price": 20},
         "D": {"price": 15},
         "E": {"price": 40, "special_offers": []}
@@ -28,11 +37,12 @@ def get_price(sku: str, sku_count: int) -> int:
     total = 0
     # Check for special offers
     if price_table[sku].get("special_offers", None):
-        if price_table[sku]["special_offers"]["count"] <= sku_count:
-            total += price_table[sku]["special_offers"]["price"] * (
-                        sku_count // price_table[sku]["special_offers"]["count"])
-            total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
-            return total
+        # if price_table[sku]["special_offers"]["count"] <= sku_count:
+        #     total += price_table[sku]["special_offers"]["price"] * (
+        #                 sku_count // price_table[sku]["special_offers"]["count"])
+        #     total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
+        #     return total
+        price_table[sku]["special_offers"].calculate_price(sku_count)
 
     total = (price_table[sku]["price"] * sku_count)
 
@@ -54,4 +64,5 @@ def checkout(skus):
             return -1
 
     return total
+
 
