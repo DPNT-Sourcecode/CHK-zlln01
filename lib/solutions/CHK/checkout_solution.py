@@ -24,6 +24,33 @@ class MultiPriceOffer:
         return total
 
 
+@dataclass
+class MultiBuyOffer:
+    base_price: int
+    # {2: {"B": {"count": 1, "base_price": 30}}
+    multi_buy_offers: Dict[int, Dict[str, Dict[str, int]]]
+
+    def calculate_price(self, sku_count: int, skus: str) -> int:
+        total = 0
+        total += sku_count * self.base_price
+
+        # Calculate free products
+        number_of_possible_free_skus = sku_count // sku_count
+
+        
+
+
+        # offer_count_ordered_by_count = sorted(self.prices.keys(), reverse=True)
+        #
+        # for offer_sku_count in offer_count_ordered_by_count:
+        #     total += self.prices[offer_sku_count] * (sku_count // offer_sku_count)
+        #     sku_count = sku_count % offer_sku_count
+        #     if sku_count == 0:
+        #         return total
+        #
+        # total += sku_count * self.base_price
+        # return total
+
 
 def get_price(sku: str, sku_count: int) -> int:
     price_table = {
@@ -69,3 +96,4 @@ def checkout(skus):
             return -1
 
     return total
+
