@@ -74,7 +74,17 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
             }
         }
         )
+        },
+        "F": {"price": 10, "special_offers": MultiBuyOffer(base_price=10, multi_buy_offers={
+            3: {
+                "count": 1,
+                "base_price": 10,
+                "sku": "F",
+                "special_offer": MultiPriceOffer(base_price=10, prices={})
+            }
         }
+                                                           )
+              }
     }
 
     # Check if SKU in price table
