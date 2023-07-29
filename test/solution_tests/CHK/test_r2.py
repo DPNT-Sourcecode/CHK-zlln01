@@ -8,13 +8,13 @@ class TestCheckout():
     @pytest.mark.parametrize(
         "skus, expected_value",
         [
-            ("A", 50),
-            ("AAABCD", 195),
+            ("AAAAA", 200),
+            ("AAAAAAAA", 330),
             ("AAABCDE", -1),
-            ("AAAABCD", 245),
-            ("AAAA", 180),
-            ("AAAAA", 230),
-            ("AAAAAA", 260),
+            ("EEB", 80),
+            ("EEBB", 110),
+            ("EEEEBB", 160),
+            ("AAAAAEEB", 280),
         ])
     def test_checkout(self, skus, expected_value):
         assert checkout(skus) == expected_value
