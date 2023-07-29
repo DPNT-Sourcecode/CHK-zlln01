@@ -24,7 +24,7 @@ class TestCheckout():
             ("FFFFF", 40),
             ("FFFFFF", 40),
             ("ABCDEF", 165),
-            ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 853),
+            ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 837),
             ("HHHHH", 45),
             ("HHHHHHHHHH", 80),
             ("KK", 120),

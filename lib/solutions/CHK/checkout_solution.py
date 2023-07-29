@@ -65,6 +65,7 @@ class MultiBuyOffer:
 
         return total
 
+
 @dataclass
 class GroupDiscount:
     skus_in_group: List[str]
@@ -165,8 +166,8 @@ def get_price_table() -> Dict[str, Any]:
                 },
             ),
         },
-        "S": {"price": 20}, # TODO
-        "T": {"price": 20}, # TODO
+        "S": {"price": 20},  # TODO
+        "T": {"price": 20},  # TODO
         "U": {
             "price": 40,
             "special_offers": MultiBuyOffer(
@@ -187,7 +188,7 @@ def get_price_table() -> Dict[str, Any]:
         },
         "W": {"price": 20},
         "X": {"price": 17},  # TODO
-        "Y": {"price": 20}, # TODO
+        "Y": {"price": 20},  # TODO
         "Z": {"price": 21},  # TODO
     }
 
@@ -210,8 +211,11 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
 
     return total
 
+
 def apply_group_discount(total: int, skus: str):
-    group_discount = GroupDiscount(skus_in_group=["S", "T", "X", "Y", "Z"], group_price=45, group_count=3)
+    group_discount = GroupDiscount(
+        skus_in_group=["S", "T", "X", "Y", "Z"], group_price=45, group_count=3
+    )
     price_table = get_price_table()
 
     sku_values = []
@@ -228,10 +232,7 @@ def apply_group_discount(total: int, skus: str):
     list_split_index = len(sku_values) - (len(sku_values) % group_discount.group_count)
     total -= sum(sku_values[:list_split_index])
     total += (len(sku_values) // group_discount.group_count) * 45
-    total += sum(sku_values[list_split_index:])
     return total
-
-
 
 
 def checkout(skus):
@@ -250,3 +251,4 @@ def checkout(skus):
     total = apply_group_discount(total, skus)
 
     return total
+
