@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Union, Optional, Any
+from typing import Dict, Union, Optional, Any, List
 
 
 # noinspection PyUnusedLocal
@@ -64,6 +64,15 @@ class MultiBuyOffer:
                     total -= calculated_price
 
         return total
+
+@dataclass
+class GroupDiscount:
+    skus_in_group: List[str]
+    group_price: int
+    group_count: int
+
+    def calculate_price(self, sku_count: int, skus: str) -> int:
+        ...
 
 
 def get_price_table() -> Dict[str, Any]:
@@ -200,6 +209,25 @@ def get_price(sku: str, sku_count: int, skus: str) -> int:
     total = price_table[sku]["price"] * sku_count
 
     return total
+
+def apply_group_discount(total: int, skus: str):
+    group_discount = GroupDiscount(skus_in_group=["S", "T", "X", "Y", "Z"], group_price=45, group_count=3)
+    price_table = get_price_table()
+
+    sku_values = []
+    for sku in skus:
+        if sku in group_discount.skus_in_group:
+            sku_values.append(price_table[sku]["price"])
+
+    # Sort SKU values high to low
+    sku_values.sort(reverse=True)
+
+    if len(sku_values) < group_discount.group_count:
+        return total
+
+    
+
+
 
 
 def checkout(skus):
