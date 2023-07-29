@@ -10,5 +10,11 @@ def checkout(skus):
         "D": {"price": 15},
     }
 
-    
+    sku_count = {}
 
+    for sku in skus:
+        sku_count[sku] = sku_count.get(sku, 0) + 1
+
+    total = 0
+
+    for sku, sku_count in 
