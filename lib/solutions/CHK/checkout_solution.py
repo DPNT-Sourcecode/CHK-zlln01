@@ -7,6 +7,7 @@ from typing import Dict
 
 @dataclass
 class MultiPriceOffer:
+    base_price: int
     prices: Dict[int, int]
 
     def calculate_price(self, sku_count: int) -> int:
@@ -15,16 +16,19 @@ class MultiPriceOffer:
         remaining = 0
         for offer_sku_count in offer_count_ordered_by_count:
             total += self.prices[offer_sku_count] * (sku_count // offer_sku_count)
-            remaining = self.prices[offer_sku_count] * (sku_count % offer_sku_count)
+            remaining = sku_count % offer_sku_count
             if remaining == 0:
                 return total
+
+        total += remaining * self.base_price
+        return total
 
 
 
 def get_price(sku: str, sku_count: int) -> int:
     price_table = {
-        "A": {"price": 50, "special_offers": MultiPriceOffer(prices={3: 130, 5: 200})},
-        "B": {"price": 30, "special_offers": MultiPriceOffer(prices={2: 45})},
+        "A": {"price": 50, "special_offers": MultiPriceOffer(base_price=50, prices={3: 130, 5: 200})},
+        "B": {"price": 30, "special_offers": MultiPriceOffer(base_price=30, prices={2: 45})},
         "C": {"price": 20},
         "D": {"price": 15},
         "E": {"price": 40, "special_offers": []}
@@ -42,7 +46,8 @@ def get_price(sku: str, sku_count: int) -> int:
         #                 sku_count // price_table[sku]["special_offers"]["count"])
         #     total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
         #     return total
-        price_table[sku]["special_offers"].calculate_price(sku_count)
+        return price_table[sku]["special_offers"].calculate_price(sku_count)
+
 
     total = (price_table[sku]["price"] * sku_count)
 
@@ -64,6 +69,3 @@ def checkout(skus):
             return -1
 
     return total
-
-
-
