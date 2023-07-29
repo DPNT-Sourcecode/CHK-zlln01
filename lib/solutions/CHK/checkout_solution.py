@@ -10,13 +10,7 @@ class MultiPriceOffer:
     prices: Dict[int, int]
 
     def calculate_price(self, sku_count: int) -> int:
-        
-
-        if price_table[sku]["special_offers"]["count"] <= sku_count:
-            total += price_table[sku]["special_offers"]["price"] * (
-                        sku_count // price_table[sku]["special_offers"]["count"])
-            total += price_table[sku]["price"] * (sku_count % price_table[sku]["special_offers"]["count"])
-            return total
+        prices = self.prices.keys()        
 
 def get_price(sku: str, sku_count: int) -> int:
     price_table = {
@@ -60,3 +54,4 @@ def checkout(skus):
             return -1
 
     return total
+
